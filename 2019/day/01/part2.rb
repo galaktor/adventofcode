@@ -6,4 +6,4 @@ def fuel(mass)
   f + fuel(f)
 end
 
-puts File.readlines("./input.txt").map{ |l| fuel(l.to_f) }.reduce(:+)
+puts File.readlines(ARGV[0]).map{ |l| fuel(l.to_f) }.reduce(:+)
