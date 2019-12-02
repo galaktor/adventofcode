@@ -11,7 +11,7 @@ def mult(p1, p2)
 end
 
 def halt
-  puts @input.join(",")
+  puts @input.first
   exit 0
 end
 
@@ -31,8 +31,8 @@ end
 
 i = 0
 
-@input[1] = 12
-@input[2] = 2
+@input[1] = ARGV[1]&.to_i || 12
+@input[2] = ARGV[2]&.to_i || 2
 
 while i < @input.length
   process(@input[i], @input[i+1], @input[i+2], @input[i+3])
