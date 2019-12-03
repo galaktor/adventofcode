@@ -115,6 +115,7 @@ func main() {
 		for {
 			if new := <-dist; lowest == 0 || new < lowest {
 				lowest = new
+				fmt.Printf("new lowest: %d\n", lowest)
 			}
 		}
 	}()
