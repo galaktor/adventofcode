@@ -28,7 +28,7 @@ class Point
   end
 
   def distance
-    x + y
+    x.abs + y.abs
   end
 
   def to_s
