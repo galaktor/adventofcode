@@ -4,6 +4,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"os"
 	"strconv"
 	"strings"
@@ -36,7 +37,7 @@ func (p *Point) Update(dir string, len int) {
 }
 
 func (p *Point) Distance() int {
-	return p.X + p.Y
+	return int(math.Abs(float64(p.X + p.Y)))
 }
 
 func (p *Point) String() string {
@@ -105,6 +106,17 @@ func main() {
 	wire1 := wires[0]
 	wire2 := wires[1]
 
+	var lowest int
+	dist := make(chan int)
+
+	go func() {
+		for {
+			if new := <-dist; lowest == 0 || new < lowest {
+				lowest = new
+			}
+		}
+	}()
+
 	var wg sync.WaitGroup
 	for _, p2 := range wire2.Points[1:] {
 		for _, p1 := range wire1.Points[1:] {
@@ -112,12 +124,15 @@ func main() {
 			go func(p1 Point, p2 Point) {
 				defer wg.Done()
 				if p1.Equal(p2) {
+					dist <- p1.Distance()
 					fmt.Printf("intersect: %s\n", p1.String())
 				}
 			}(p1, p2)
 		}
 	}
 	wg.Wait()
+
+	fmt.Printf("lowest distance: %v\n", lowest)
 
 	//	puts wire2.points.drop(1).select{ |p2| wire1.points.drop(1).any?{ |p1| p1.equal(p2) }}.map{ |p| p.distance }.sort.first
 }
