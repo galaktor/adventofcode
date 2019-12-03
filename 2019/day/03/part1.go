@@ -133,6 +133,4 @@ func main() {
 	wg.Wait()
 
 	fmt.Printf("lowest distance: %v\n", lowest)
-
-	//	puts wire2.points.drop(1).select{ |p2| wire1.points.drop(1).any?{ |p1| p1.equal(p2) }}.map{ |p| p.distance }.sort.first
 }
