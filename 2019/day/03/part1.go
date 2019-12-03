@@ -37,7 +37,7 @@ func (p *Point) Update(dir string, len int) {
 }
 
 func (p *Point) Distance() int {
-	return int(math.Abs(float64(p.X + p.Y)))
+	return int(math.Abs(float64(p.X)) + math.Abs(float64(p.Y)))
 }
 
 func (p *Point) String() string {
