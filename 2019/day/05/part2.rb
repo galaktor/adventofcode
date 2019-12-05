@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'readline'
-require 'pry'
 
 @input = File.read(ARGV[0]).split(",").map(&:to_i)
 
