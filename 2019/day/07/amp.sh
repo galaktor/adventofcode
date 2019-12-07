@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-INTCODE="input-test.txt"
+INTCODE="input.txt"
 PHASES=$1
 
 P1="${PHASES:0:1}"
