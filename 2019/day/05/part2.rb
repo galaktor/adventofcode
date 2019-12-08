@@ -2,6 +2,9 @@
 
 require 'readline'
 
+STDIN.sync = true
+STDOUT.sync = true
+
 @input = File.read(ARGV[0]).split(",").map(&:to_i)
 
 def add(p1, p2)
