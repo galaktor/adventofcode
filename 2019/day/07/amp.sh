@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-INTCODE="input-test.txt"
+INTCODE="input.txt"
 
 PHASES=$1
 
@@ -23,10 +23,10 @@ mkfifo $AMP3
 mkfifo $AMP4
 mkfifo $AMP5
 
-while read line <$AMP1; do echo $line; done | ./compute.rb $INTCODE | grep --line-buffered -v ">" | tee $AMP2 &
-while read line <$AMP2; do echo $line; done | ./compute.rb $INTCODE | grep --line-buffered -v ">" | tee $AMP3 &
-while read line <$AMP3; do echo $line; done | ./compute.rb $INTCODE | grep --line-buffered -v ">" | tee $AMP4 &
-while read line <$AMP4; do echo $line; done | ./compute.rb $INTCODE | grep --line-buffered -v ">" | tee $AMP5 &
+while read line <$AMP1; do echo $line; done | ./compute.rb $INTCODE | grep --line-buffered -v ">" >> $AMP2 &
+while read line <$AMP2; do echo $line; done | ./compute.rb $INTCODE | grep --line-buffered -v ">" >> $AMP3 &
+while read line <$AMP3; do echo $line; done | ./compute.rb $INTCODE | grep --line-buffered -v ">" >> $AMP4 &
+while read line <$AMP4; do echo $line; done | ./compute.rb $INTCODE | grep --line-buffered -v ">" >> $AMP5 &
 while read line <$AMP5; do echo $line; done | ./compute.rb $INTCODE | grep --line-buffered -v ">" | tee $AMP1 &
 
 echo $P1 >> $AMP1
