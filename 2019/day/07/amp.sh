@@ -10,32 +10,33 @@ P3="${PHASES:2:1}"
 P4="${PHASES:3:1}"
 P5="${PHASES:4:1}"
 
-echo "deleting fifos"
-rm *.in
+FIFODIR=$(mktemp -d)
+AMP1="$FIFODIR/amp1.in"
+AMP2="$FIFODIR/amp2.in"
+AMP3="$FIFODIR/amp3.in"
+AMP4="$FIFODIR/amp4.in"
+AMP5="$FIFODIR/amp5.in"
 
-echo "making fifos"
-mkfifo amp1.in
-mkfifo amp2.in
-mkfifo amp3.in
-mkfifo amp4.in
-mkfifo amp5.in
+mkfifo $AMP1
+mkfifo $AMP2
+mkfifo $AMP3
+mkfifo $AMP4
+mkfifo $AMP5
 
-echo "starting amps"
-while read line <amp1.in; do echo $line; done | ./compute.rb $INTCODE | grep --line-buffered -v ">" | tee amp2.in &
-while read line <amp2.in; do echo $line; done | ./compute.rb $INTCODE | grep --line-buffered -v ">" | tee amp3.in &
-while read line <amp3.in; do echo $line; done | ./compute.rb $INTCODE | grep --line-buffered -v ">" | tee amp4.in &
-while read line <amp4.in; do echo $line; done | ./compute.rb $INTCODE | grep --line-buffered -v ">" | tee amp5.in &
-while read line <amp5.in; do echo $line; done | ./compute.rb $INTCODE | grep --line-buffered -v ">" | tee amp1.in &
+while read line <$AMP1; do echo $line; done | ./compute.rb $INTCODE | grep --line-buffered -v ">" | tee $AMP2 &
+while read line <$AMP2; do echo $line; done | ./compute.rb $INTCODE | grep --line-buffered -v ">" | tee $AMP3 &
+while read line <$AMP3; do echo $line; done | ./compute.rb $INTCODE | grep --line-buffered -v ">" | tee $AMP4 &
+while read line <$AMP4; do echo $line; done | ./compute.rb $INTCODE | grep --line-buffered -v ">" | tee $AMP5 &
+while read line <$AMP5; do echo $line; done | ./compute.rb $INTCODE | grep --line-buffered -v ">" | tee $AMP1 &
 
-echo "configuring amps"
-echo $P1 >> amp1.in
-echo $P2 >> amp2.in
-echo $P3 >> amp3.in
-echo $P4 >> amp4.in
-echo $P5 >> amp5.in
+echo $P1 >> $AMP1
+echo $P2 >> $AMP2
+echo $P3 >> $AMP3
+echo $P4 >> $AMP4
+echo $P5 >> $AMP5
 
-echo "starting pipeline"
-echo 0 >> amp1.in
+echo 0 >> $AMP1
 
-echo "waiting"
 wait
+
+rm -rf $FIFODIR
