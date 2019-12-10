@@ -13,7 +13,8 @@ class Asteroid
   def scan(asteroids)
     neighbours = {}
     asteroids.reject{ |a| equal(a) }.each_with_object({}) do |a,h|
-      @neighbours[dir(a)] = dist(a)
+      d=dir(a)
+      @neighbours[d] = dist(a) unless @neighbours.key?(d)
     end
   end
 
