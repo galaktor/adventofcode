@@ -84,3 +84,12 @@ Checking your external ship cameras again, you notice a white panel marked "emer
 Based on the Space Law Space Brochure that the Space Police attached to one of your windows, a valid registration identifier is always **eight capital letters**. After starting the robot on a single **white panel** instead, **what registration identifier does it paint** on your hull?
 
 Your puzzle answer was `RJLFBUCU`.
+
+```
+ ###    ## #    #### ###  #  #  ##  #  #
+ #  #    # #    #    #  # #  # #  # #  #
+ #  #    # #    ###  ###  #  # #    #  #
+ ###     # #    #    #  # #  # #    #  #
+ # #  #  # #    #    #  # #  # #  # #  #
+ #  #  ##  #### #    ###   ##   ##   ##
+ ```
