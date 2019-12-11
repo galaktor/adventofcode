@@ -19,7 +19,7 @@ func main() {
 	}()
 
 	var wg sync.WaitGroup
-	for i := 940000; i <= 9999999; i += 1 {
+	for i := 0; i <= 9999999; i += 1 {
 		wg.Add(1)
 		go func(i int) {
 			defer wg.Done()
