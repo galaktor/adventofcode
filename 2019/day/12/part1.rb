@@ -21,8 +21,14 @@ class Moon
     @pos += @vel
   end
 
+  def energy
+    pot = @pos.map(&:abs).reduce(&:+)
+    kin = @vel.map(&:abs).reduce(&:+)
+    pot * kin
+  end
+
   def to_s
-    "#{@pos}->#{@vel}"
+    "#{@pos}->#{@vel}[#{energy}]"
   end
 end
 
@@ -32,3 +38,4 @@ moons = File.readlines(ARGV[0]).map{ |l| l.tr("<", "").tr(">", "").split(",").ma
   moons.each(&:move)
 end
 puts moons
+puts moons.map(&:energy).reduce(&:+)
