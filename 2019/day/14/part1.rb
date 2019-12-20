@@ -20,9 +20,8 @@ def ore(q, m)
   end
 
   batches = (q-1)/r.last.q+1
-  oreNeeded = r.take(r.length-1).map{ |r| ore(r.q*batches, r.m) }.reduce(&:+)
   @waste[m] += batches*r.last.q - q if batches*r.last.q-q > 0
-  return oreNeeded
+  r.take(r.length-1).map{ |r| ore(r.q*batches, r.m) }.reduce(&:+)
 end
 
 puts ore(1, "FUEL")
