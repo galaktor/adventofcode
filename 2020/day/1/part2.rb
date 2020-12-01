@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'pry'
-
 numbers = File.readlines(ARGV[0]).map{ |l| l.chomp.to_i }
 numbers.each do |n|
   numbers.each do |m|
