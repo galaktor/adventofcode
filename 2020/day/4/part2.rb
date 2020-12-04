@@ -10,7 +10,7 @@ File.readlines(ARGV[0]).each do |line|
 end
 
 valid = passports.select do |p|
-  (p.keys.count == 7 && !p.key?("cid")) || (other = p.keys.count == 8)
+  (p.keys.count == 7 && !p.key?("cid")) || p.keys.count == 8
 end
 
 valid = valid.select do |p|
