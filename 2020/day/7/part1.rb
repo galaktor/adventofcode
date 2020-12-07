@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'pry'
 require 'json'
 
 class Bag
@@ -19,7 +18,6 @@ bags = {}
 File.readlines(ARGV[0]).map(&:strip).map{ |l| l.chomp(".") }.each do |l|
   outer, inner = l.split(/bags contain \d+/)
   outer = outer&.split(/bags contain no other bags/).map(&:strip).first
-  #inner = inner&.split(/, \d+ bags/)
   inner = inner&.split(/bag[s]*, \d+/)&.map{ |i| i.chomp("bags").chomp("bag").strip }
   bags[outer] ||= Bag.new(outer)
   inner&.each do |i|
